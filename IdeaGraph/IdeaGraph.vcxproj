@@ -31,7 +31,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>Qt_6.4.0_x64</QtInstall>
+    <QtInstall>Qt_6.5</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -85,6 +85,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <QtMoc Include="PreviewBox.h" />
     <QtMoc Include="GraphBox.h" />
     <QtMoc Include="GraphAnchor.h" />
     <ClInclude Include="ideagraph_global.h" />
@@ -92,6 +93,7 @@
   <ItemGroup>
     <ClCompile Include="GraphAnchor.cpp" />
     <ClCompile Include="GraphBox.cpp" />
+    <ClCompile Include="PreviewBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="GraphBox.ui" />

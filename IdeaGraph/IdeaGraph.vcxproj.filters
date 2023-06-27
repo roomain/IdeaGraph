@@ -34,12 +34,18 @@
     <ClCompile Include="GraphAnchor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PreviewBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="GraphBox.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="GraphAnchor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="PreviewBox.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
