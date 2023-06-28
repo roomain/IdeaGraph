@@ -1,19 +1,20 @@
 #pragma once
 
 #include <QWidget>
-#include "ui_GraphBox.h"
+#include "ui_EditGraphBox.h"
 #include <vector>
 
-class PreviewBox;
+class EditPreviewBox;
 
-class GraphBox : public QWidget
+class EditGraphBox : public QWidget
 {
 	Q_OBJECT
 
 public:
-	GraphBox(QWidget *parent = nullptr);
-	~GraphBox();
+	EditGraphBox(QWidget *parent = nullptr);
+	~EditGraphBox();
 	void setTitle(const QString& a_title);
+	//void serialize();
 
 protected:
 	void mouseMoveEvent(QMouseEvent* a_pEvent)override;
@@ -26,9 +27,9 @@ protected:
 	void dropEvent(QDropEvent* a_pEvent)override;
 
 private:
-	Ui::GraphBoxClass ui;
-	std::vector<PreviewBox*> m_vPreviewInBoxes;
-	std::vector<PreviewBox*> m_vPreviewOutBoxes;
+	Ui::EditGraphBoxClass ui;
+	std::vector<EditPreviewBox*> m_vPreviewInBoxes;
+	std::vector<EditPreviewBox*> m_vPreviewOutBoxes;
 	int dragInternal(const QPoint& a_pos, bool& a_isInput);
 	int findInput(const QPoint& a_pos)const;
 	int findOutput(const QPoint& a_pos)const;

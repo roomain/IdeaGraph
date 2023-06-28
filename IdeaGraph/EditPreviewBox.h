@@ -1,12 +1,12 @@
 #pragma once
 #include <qwidget.h>
 
-class PreviewBox : public QWidget
+class EditPreviewBox : public QWidget
 {
 	Q_OBJECT
 public:
-	PreviewBox(QWidget* a_parent = nullptr);
-	virtual ~PreviewBox() = default;
+	EditPreviewBox(QWidget* a_parent = nullptr);
+	virtual ~EditPreviewBox() = default;
 
 protected:
 	void paintEvent(QPaintEvent* a_pEvent)override;

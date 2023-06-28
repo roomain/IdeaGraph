@@ -31,7 +31,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>Qt_6.5.1_x64</QtInstall>
+    <QtInstall>Qt_6.5</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -85,18 +85,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtMoc Include="PreviewBox.h" />
-    <QtMoc Include="GraphBox.h" />
-    <QtMoc Include="GraphAnchor.h" />
+    <QtMoc Include="EditPreviewBox.h" />
+    <QtMoc Include="EditGraphBox.h" />
+    <QtMoc Include="EditGraphAnchor.h" />
     <ClInclude Include="ideagraph_global.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GraphAnchor.cpp" />
-    <ClCompile Include="GraphBox.cpp" />
-    <ClCompile Include="PreviewBox.cpp" />
+    <ClCompile Include="EditGraphAnchor.cpp" />
+    <ClCompile Include="EditGraphBox.cpp" />
+    <ClCompile Include="EditPreviewBox.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="GraphBox.ui" />
+    <QtUic Include="EditGraphBox.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

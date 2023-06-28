@@ -1,13 +1,13 @@
 #pragma once
 #include <qwidget.h>
 
-class GraphAnchor : public QWidget
+class EditGraphAnchor : public QWidget
 {
 	Q_OBJECT
 
 public:
-	GraphAnchor(QWidget* a_parent);
-	~GraphAnchor() = default;
+	EditGraphAnchor(QWidget* a_parent);
+	~EditGraphAnchor() = default;
 
 protected:
 	void paintEvent(QPaintEvent* a_event)final;

@@ -1,14 +1,14 @@
-#include "GraphAnchor.h"
+#include "EditGraphAnchor.h"
 #include <qevent.h>
 #include <qpainter.h>
 #include <qpainterpath.h>
 
-GraphAnchor::GraphAnchor(QWidget* a_parent) : QWidget(a_parent)
+EditGraphAnchor::EditGraphAnchor(QWidget* a_parent) : QWidget(a_parent)
 {
 	// TODO
 }
 
-void GraphAnchor::paintEvent(QPaintEvent* a_event)
+void EditGraphAnchor::paintEvent(QPaintEvent* a_event)
 {
 	QPainter painter(this);
 	

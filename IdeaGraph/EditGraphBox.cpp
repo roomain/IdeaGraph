@@ -1,56 +1,56 @@
-#include "GraphBox.h"
-#include "PreviewBox.h"
+#include "EditGraphBox.h"
+#include "EditPreviewBox.h"
 #include <qevent.h>
 
-GraphBox::GraphBox(QWidget *parent)
+EditGraphBox::EditGraphBox(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
 	setMouseTracking(true);
 
-	m_vPreviewInBoxes.push_back(new PreviewBox);
+	m_vPreviewInBoxes.push_back(new EditPreviewBox);
 	ui.InputLayout->addWidget(m_vPreviewInBoxes[0]);
 	m_vPreviewInBoxes[0]->setVisible(false);
 
-	m_vPreviewOutBoxes.push_back(new PreviewBox);
+	m_vPreviewOutBoxes.push_back(new EditPreviewBox);
 	ui.OutputLayout->addWidget(m_vPreviewOutBoxes[0]);
 	m_vPreviewOutBoxes[0]->setVisible(false);
 }
 
-GraphBox::~GraphBox()
+EditGraphBox::~EditGraphBox()
 {}
 
-void GraphBox::setTitle(const QString& a_title)
+void EditGraphBox::setTitle(const QString& a_title)
 {
 	ui.lblTitle->setText(a_title);
 }
 
 
-void GraphBox::mouseMoveEvent(QMouseEvent* a_pEvent)
+void EditGraphBox::mouseMoveEvent(QMouseEvent* a_pEvent)
 {
 	QPoint ptMouse = a_pEvent->pos();
 	//
 }
 
-void GraphBox::mousePressEvent(QMouseEvent* a_pEvent)
+void EditGraphBox::mousePressEvent(QMouseEvent* a_pEvent)
 {
 	QPoint ptMouse = a_pEvent->pos();
 	//
 }
 
-void GraphBox::mouseReleaseEvent(QMouseEvent* a_pEvent)
+void EditGraphBox::mouseReleaseEvent(QMouseEvent* a_pEvent)
 {
 	QPoint ptMouse = a_pEvent->pos();
 	//
 }
 
-void GraphBox::mouseDoubleClickEvent(QMouseEvent* a_pEvent)
+void EditGraphBox::mouseDoubleClickEvent(QMouseEvent* a_pEvent)
 {
 	QPoint ptMouse = a_pEvent->pos();
 	//
 }
 
-int GraphBox::findInput(const QPoint& a_pos)const
+int EditGraphBox::findInput(const QPoint& a_pos)const
 {
 	const int iCount = ui.InputLayout->count();
 	for (int index = 1; index < iCount; ++index)
@@ -58,7 +58,7 @@ int GraphBox::findInput(const QPoint& a_pos)const
 		auto pWdg = ui.OutputLayout->itemAt(index)->widget();
 		if (pWdg->isVisible() && pWdg->rect().contains(a_pos))
 		{
-			if (dynamic_cast<PreviewBox*>(pWdg))
+			if (dynamic_cast<EditPreviewBox*>(pWdg))
 				return index;
 
 			if ((a_pos.x() - pWdg->rect().center().x()) < 0)
@@ -74,7 +74,7 @@ int GraphBox::findInput(const QPoint& a_pos)const
 	return -1;
 }
 
-int GraphBox::findOutput(const QPoint& a_pos)const
+int EditGraphBox::findOutput(const QPoint& a_pos)const
 {
 	const int iCount = ui.OutputLayout->count();
 	for (int index = 1; index < iCount; ++index)
@@ -82,7 +82,7 @@ int GraphBox::findOutput(const QPoint& a_pos)const
 		auto pWdg = ui.OutputLayout->itemAt(index)->widget();
 		if (pWdg->isVisible() && pWdg->rect().contains(a_pos))
 		{
-			if (dynamic_cast<PreviewBox*>(pWdg))
+			if (dynamic_cast<EditPreviewBox*>(pWdg))
 				return index;
 
 			if ((a_pos.x() - pWdg->rect().center().x()) < 0)
@@ -98,7 +98,7 @@ int GraphBox::findOutput(const QPoint& a_pos)const
 	return -1;
 }
 
-int GraphBox::dragInternal(const QPoint& a_pos, bool& a_isInput)
+int EditGraphBox::dragInternal(const QPoint& a_pos, bool& a_isInput)
 {
 	int index = -1;
 	for (const auto pPrevBox : m_vPreviewInBoxes)
@@ -136,19 +136,19 @@ int GraphBox::dragInternal(const QPoint& a_pos, bool& a_isInput)
 	return index;
 }
 
-void GraphBox::dragEnterEvent(QDragEnterEvent* a_pEvent)
+void EditGraphBox::dragEnterEvent(QDragEnterEvent* a_pEvent)
 {
 	QPoint ptMouse = a_pEvent->pos();
 	//
 }
 
-void GraphBox::dragMoveEvent(QDragMoveEvent* a_pEvent)
+void EditGraphBox::dragMoveEvent(QDragMoveEvent* a_pEvent)
 {
 	QPoint ptMouse = a_pEvent->pos();
 	//
 }
 
-void GraphBox::dragLeaveEvent(QDragLeaveEvent* a_pEvent)
+void EditGraphBox::dragLeaveEvent(QDragLeaveEvent* a_pEvent)
 {
 	for (const auto pPrevInBox : m_vPreviewInBoxes)
 		pPrevInBox->setVisible(false);
@@ -157,7 +157,7 @@ void GraphBox::dragLeaveEvent(QDragLeaveEvent* a_pEvent)
 		pPrevOutBox->setVisible(false);
 }
 
-void GraphBox::dropEvent(QDropEvent* a_pEvent)
+void EditGraphBox::dropEvent(QDropEvent* a_pEvent)
 {
 	QPoint ptMouse = a_pEvent->pos();
 	//
