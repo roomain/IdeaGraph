@@ -85,18 +85,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtMoc Include="EditPreviewBox.h" />
-    <QtMoc Include="EditGraphBox.h" />
-    <QtMoc Include="EditGraphAnchor.h" />
     <ClInclude Include="ideagraph_global.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="EditGraphAnchor.cpp" />
-    <ClCompile Include="EditGraphBox.cpp" />
-    <ClCompile Include="EditPreviewBox.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtUic Include="EditGraphBox.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
