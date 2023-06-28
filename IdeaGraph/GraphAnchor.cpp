@@ -17,7 +17,6 @@ void GraphAnchor::paintEvent(QPaintEvent* a_event)
 
 	QPen pen(QColor(0, 0, 0), 3);
 	painter.setPen(pen);
-	painter.setBrush(QColor(255, 255, 255));
-	painter.drawPath(path);
+	painter.fillPath(path, QColor(255, 255, 255));
 	painter.drawEllipse(rect());
 }
