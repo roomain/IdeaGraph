@@ -23,7 +23,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ideagraph_global.h">
+    <ClInclude Include="editwidgets_global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

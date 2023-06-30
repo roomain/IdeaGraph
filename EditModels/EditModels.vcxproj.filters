@@ -23,8 +23,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ideagraph_global.h">
+    <ClInclude Include="editmodels_global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <QtMoc Include="EditPropertyModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClCompile Include="EditPropertyModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+
   </ItemGroup>
 </Project>
