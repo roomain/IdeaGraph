@@ -57,5 +57,4 @@ public:
 
 	/*@brief size of described class*/
 	[[nodiscard]] virtual size_t classSize()const noexcept = 0;
-	// TODO
 };
