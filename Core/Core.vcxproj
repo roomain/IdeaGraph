@@ -145,6 +145,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="RTTIDefinition.h" />
     <ClInclude Include="RTTIException.h" />
+    <ClInclude Include="RTTITDefinition.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
