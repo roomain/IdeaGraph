@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "RTTIDefinition.h"
+#include "ProtocolExtension.h"
 #include <ranges>
 
 RTTIDefinition::RTTIDefinition(const std::string_view& a_name, const unsigned short a_version) :
@@ -28,10 +29,10 @@ void RTTIDefinition::registerProtocolExt(const std::shared_ptr<ProtocolExtension
 	{
 		std::erase_if(m_extensions, [&a_protocol](const auto& curProt)
 			{
-				return curProt->isKindOf(a_protocol->isA()) || protocol->isKindOf(curProt->isA());
+				return curProt->isKindOf(a_protocol->isA()) || a_protocol->isKindOf(curProt->isA());
 			});
 
-		m_vProtocoleExt.emplace_back(a_protocol);
+		m_extensions.emplace_back(a_protocol);
 	}
 }
 
@@ -48,7 +49,18 @@ std::shared_ptr<ProtocolExtension> RTTIDefinition::getProtocolExt(const std::sha
 	std::shared_ptr<ProtocolExtension> pProtocolExt;
 	auto iter = std::ranges::find_if(m_extensions, [&pDef](auto a_pExt) {return a_pExt->isKindOf(pDef); });
 	if (iter != m_extensions.end())
+	{
 		pProtocolExt = *iter;
+	}
+	else
+	{
+		for (const auto& pCurProtocol : m_vParent)
+		{
+			pProtocolExt = pCurProtocol->getProtocolExt(pDef);
+			if (pProtocolExt)
+				break;
+		}
+	}
 	return pProtocolExt;
 }
 

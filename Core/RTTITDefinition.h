@@ -13,7 +13,7 @@ public:
 		RTTIDefinition(a_name, a_version, a_vParents) {}
 
 	/*@brief size of described class*/
-	[[nodiscard]] virtual size_t classSize()const noexcept { return sizeof(DefinedClass); }
+	[[nodiscard]] virtual size_t classSize()const noexcept override{ return sizeof(DefinedClass); }
 
 	/*@brief create class*/
 	std::shared_ptr<DefinedClass> create()
@@ -21,3 +21,7 @@ public:
 		return std::make_shared<DefinedClass>();
 	}
 };
+
+
+template<typename DefinedClass>
+using RTTITDefinitionPtr = std::shared_ptr<RTTITDefinition<DefinedClass>>;

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "RTTIException.h"
+#include <format>
 
 RTTIException::RTTIException(RTTIException::Type errType, std::string_view info) : m_exceptionType{ errType }
 {

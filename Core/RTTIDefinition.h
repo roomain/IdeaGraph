@@ -24,10 +24,10 @@ public:
 		const std::vector<std::shared_ptr<RTTIDefinition>>& a_vParents);
 
 	/*
-		* @brief check is defined class is inherited from class defined by pDef
-		* @param pDef class definition to test
-		* @brief return true if defined class is inherited class defined by pDef
-		*/
+	* @brief check is defined class is inherited from class defined by pDef
+	* @param pDef class definition to test
+	* @brief return true if defined class is inherited class defined by pDef
+	*/
 	[[nodiscard]] virtual bool isKindOf(const std::shared_ptr<RTTIDefinition>& pDef)const noexcept;
 
 	/*
@@ -58,3 +58,5 @@ public:
 	/*@brief size of described class*/
 	[[nodiscard]] virtual size_t classSize()const noexcept = 0;
 };
+
+using RTTIDefinitionPtr = std::shared_ptr<RTTIDefinition>;
