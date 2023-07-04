@@ -95,11 +95,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GraphLink.h" />
     <ClInclude Include="GraphNode.h" />
+    <ClInclude Include="GraphScene.h" />
     <ClInclude Include="ideagraph_global.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GraphLink.cpp" />
     <ClCompile Include="GraphNode.cpp" />
+    <ClCompile Include="GraphScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

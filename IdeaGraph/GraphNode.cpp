@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QStyleOptionGraphicsItem>
+#include <QLinearGradient>
 
 GraphAnchor::GraphAnchor(QGraphicsItem* parent) : QGraphicsItem(parent)
 {
@@ -77,13 +78,22 @@ void GraphNode::addOutput(const QString& a_title)
 	m_outputAnchors.push_back(pAnchor);
 }
 
+
 void GraphNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
 	painter->save();
-		
+
+
+	QLinearGradient gradient(boundingRect().topLeft(), boundingRect().bottomLeft());
+	QColor centerColor = m_backgroundColor;
+	centerColor.setAlpha(100);
+	gradient.setColorAt(0, m_backgroundColor);
+	gradient.setColorAt(0.5, centerColor);
+	gradient.setColorAt(1, m_backgroundColor);
+
 	QPainterPath path;
 	path.addRoundedRect(boundingRect(), 10, 10);
-	painter->fillPath(path, m_backgroundColor);
+	painter->fillPath(path, gradient);
 
 	painter->setBrush(m_foregroundColor);
 	painter->setFont(m_font);

@@ -1,11 +1,12 @@
 #include "IdeaApplication.h"
 #include "GraphNode.h"
+#include "GraphScene.h"
 
 IdeaApplication::IdeaApplication(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-    auto pScene = new QGraphicsScene();
+    auto pScene = new GraphScene();
     ui.graphicsView->setScene(pScene);
     auto node = new GraphNode();
     node->setBKColor(QColor(200, 0, 0));
