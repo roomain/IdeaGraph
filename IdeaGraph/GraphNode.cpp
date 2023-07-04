@@ -38,6 +38,7 @@ void GraphAnchor::setColor(const QColor& a_color)
 
 GraphNode::GraphNode(QGraphicsItem* parent) : QGraphicsItem(parent)
 {
+	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
 	//
 }
 
@@ -55,6 +56,13 @@ void GraphNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
 	QTextOption opt;
 	opt.setAlignment(Qt::AlignCenter);
 	painter->drawText(boundingRect(), m_title, opt);
+
+	if (m_bHover || m_bSelected)
+	{
+		painter->setBrush(QColor(0, 0, 0, 0));
+		painter->setPen(QPen(QColor(100, 100, 100),4));
+		painter->drawRoundedRect(boundingRect(), 10, 10);
+	}
 
 	painter->restore();
 }
@@ -112,7 +120,8 @@ QRectF GraphNode::boundingRect()const
 		rect.setHeight(50);
 		rect.setWidth(50);
 	}
-	rect.translate(pos());
+	QRectF bounding(QPointF(0,0), QSizeF(rect.width() + metric.boundingRect("L").width() * 6, rect.height() + metric.boundingRect("L").height() * 2));
+	return bounding;
 	rect.setHeight(rect.height() + metric.boundingRect("L").height() * 2);
 	rect.setWidth(rect.width() + metric.boundingRect("L").width() * 6);
 	return rect;
@@ -120,10 +129,31 @@ QRectF GraphNode::boundingRect()const
 
 void GraphNode::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
-	//
+	QGraphicsItem::hoverEnterEvent(event);
+	m_bHover = true;
 }
 
 void GraphNode::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
+	QGraphicsItem::hoverLeaveEvent(event);
+	m_bHover = false;
+}
+
+void GraphNode::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+{
+	QGraphicsItem::mouseMoveEvent(event);
 	//
+}
+
+void GraphNode::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
+{
+	QGraphicsItem::mouseDoubleClickEvent(event);
+	//
+}
+
+void GraphNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
+	QGraphicsItem::mouseReleaseEvent(event);
+	m_bSelected = !m_bSelected;
+	update();
 }

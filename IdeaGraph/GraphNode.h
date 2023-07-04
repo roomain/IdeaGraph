@@ -23,6 +23,8 @@ private:
 	QColor m_foregroundColor;
 	QString m_title;
 	QFont m_font;
+	bool m_bHover = false;
+	bool m_bSelected = false;
 
 public:
 	GraphNode(QGraphicsItem* parent = nullptr);
@@ -41,5 +43,8 @@ public:
 protected:
 	virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
 	virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
+	virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+	virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
+	virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
 };
 
