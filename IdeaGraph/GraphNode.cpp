@@ -5,7 +5,9 @@
 
 GraphAnchor::GraphAnchor(QGraphicsItem* parent) : QGraphicsItem(parent)
 {
-	//
+	setFlags(QGraphicsItem::ItemIsSelectable |
+		QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemAcceptsInputMethod);
+	setAcceptHoverEvents(true);
 }
 
 void GraphAnchor::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
@@ -16,7 +18,7 @@ void GraphAnchor::paint(QPainter* painter, const QStyleOptionGraphicsItem* optio
 	path.addEllipse(boundingRect());
 	painter->fillPath(path, QColor(255, 255, 255));
 
-	painter->setPen(QPen(m_circleColor, 3));
+	painter->setPen(QPen(m_bHover ? QColor(0, 0, 255) : m_circleColor, 3));
 	painter->drawEllipse(boundingRect());
 
 	painter->restore();
@@ -33,13 +35,46 @@ void GraphAnchor::setColor(const QColor& a_color)
 	m_circleColor = a_color;
 }
 
+QRectF GraphAnchor::boundingRect()const
+{
+	return QRectF(0, 0, 15, 15);
+}
+
+void GraphAnchor::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+{
+	QGraphicsItem::hoverEnterEvent(event);
+	m_bHover = true;
+}
+
+void GraphAnchor::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+{
+	QGraphicsItem::hoverLeaveEvent(event);
+	m_bHover = false;
+}
+
 //---------------------------------------------------------------------------------------------------------------------
 
 
 GraphNode::GraphNode(QGraphicsItem* parent) : QGraphicsItem(parent)
 {
-	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
+	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable | 
+		QGraphicsItem::ItemIsFocusable);
+	setAcceptHoverEvents(true);
 	//
+}
+
+void GraphNode::addInput(const QString& a_title)
+{
+	auto pAnchor = new GraphAnchor(this);
+	pAnchor->setToolTip(a_title);
+	m_inputAnchors.push_back(pAnchor);
+}
+
+void GraphNode::addOutput(const QString& a_title)
+{
+	auto pAnchor = new GraphAnchor(this);
+	pAnchor->setToolTip(a_title);
+	m_outputAnchors.push_back(pAnchor);
 }
 
 void GraphNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
@@ -114,13 +149,40 @@ QRectF GraphNode::boundingRect()const
 	QFontMetricsF metric(m_font);
 	QTextOption opt;
 	opt.setAlignment(Qt::AlignCenter);
-	QRectF rect = metric.boundingRect(m_title, opt);
-	if (rect.height() == 0)
+	auto size = metric.size(0, m_title);
+	float fontH = size.height();
+	float fontW = size.width();
+
+	size = metric.size(0, "L");
+	fontH = (fontH == 0 ? 50 : fontH) + size.height() * 2;
+	fontW = (fontW == 0 ? 50 : fontW) + size.width() * 4;
+
+	if (!m_inputAnchors.empty())
 	{
-		rect.setHeight(50);
-		rect.setWidth(50);
+		fontW += 30;
+		int yOffset = 5;
+		for (auto pAnchor : m_inputAnchors)
+		{
+			pAnchor->setPos(5, yOffset);
+			yOffset += 20;
+		}
 	}
-	QRectF bounding(QPointF(0,0), QSizeF(rect.width() + metric.boundingRect("L").width() * 6, rect.height() + metric.boundingRect("L").height() * 2));
+
+	if (!m_outputAnchors.empty())
+	{
+		fontW += 30;
+		int yOffset = 5;
+		for (auto pAnchor : m_outputAnchors)
+		{
+			pAnchor->setPos(fontW - 20, yOffset);
+			yOffset += 20;
+		}
+	}
+
+	float maxH = std::max(m_inputAnchors.size(), m_outputAnchors.size()) * 20 + 5;
+	
+
+	QRectF bounding(QPointF(0,0), QSizeF(fontW, std::max(fontH, maxH)));
 	return bounding;
 }
 
