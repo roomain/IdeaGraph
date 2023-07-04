@@ -95,7 +95,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtMoc Include="GraphNode.h" />
+    <ClInclude Include="GraphNode.h" />
     <ClInclude Include="ideagraph_global.h" />
   </ItemGroup>
   <ItemGroup>

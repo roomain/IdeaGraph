@@ -1,9 +1,10 @@
 #pragma once
+#include "ideagraph_global.h"
 #include <qgraphicsitem.h>
+#include <qfont.h>
 
-class GraphAnchor : public QGraphicsItem
+class IDEAGRAPH_EXPORT GraphAnchor : public QGraphicsItem
 {
-	Q_OBJECT
 private:
 	QColor m_circleColor;
 
@@ -15,13 +16,13 @@ public:
 	void setColor(const QColor& a_color);
 };
 
-class GraphNode : public QGraphicsItem
+class IDEAGRAPH_EXPORT GraphNode : public QGraphicsItem
 {
-	Q_OBJECT
 private:
 	QColor m_backgroundColor;
 	QColor m_foregroundColor;
 	QString m_title;
+	QFont m_font;
 
 public:
 	GraphNode(QGraphicsItem* parent = nullptr);
@@ -33,5 +34,12 @@ public:
 	void setBKColor(const QColor& a_color);
 	QColor color()const;
 	void setColor(const QColor& a_color);
+	QFont font()const;
+	void setFont(const QFont& a_font);
+	QRectF boundingRect()const final;
+
+protected:
+	virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
+	virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 };
 
