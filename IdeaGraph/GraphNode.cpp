@@ -122,9 +122,6 @@ QRectF GraphNode::boundingRect()const
 	}
 	QRectF bounding(QPointF(0,0), QSizeF(rect.width() + metric.boundingRect("L").width() * 6, rect.height() + metric.boundingRect("L").height() * 2));
 	return bounding;
-	rect.setHeight(rect.height() + metric.boundingRect("L").height() * 2);
-	rect.setWidth(rect.width() + metric.boundingRect("L").width() * 6);
-	return rect;
 }
 
 void GraphNode::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
