@@ -2,6 +2,8 @@
 #include "ideagraph_global.h"
 #include <qgraphicsscene.h>
 
+class GraphLink;
+
 class IDEAGRAPH_EXPORT GraphScene : public QGraphicsScene
 {
 public:
@@ -12,5 +14,8 @@ protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent* event)override;
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event)override;
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event)override;
+
+private:
+    GraphLink* m_pCurrentLink = nullptr;
 };
 

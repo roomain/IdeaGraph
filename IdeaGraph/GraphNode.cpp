@@ -37,6 +37,7 @@ void GraphNode::addOutput(const QString& a_title)
 void GraphNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
 	painter->save();
+	painter->setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
 
 
 	QLinearGradient gradient(boundingRect().topLeft(), boundingRect().bottomLeft());
@@ -177,8 +178,8 @@ void GraphNode::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 
 void GraphNode::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-	GraphNode::mousePressEvent(event);
-
+	QGraphicsItem::mousePressEvent(event);
+	//
 }
 
 void GraphNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)

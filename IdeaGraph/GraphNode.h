@@ -23,7 +23,7 @@ public:
 	virtual ~GraphNode() = default;
 	void addInput(const QString& a_title);
 	void addOutput(const QString& a_title);
-	virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0) override;
+	virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
 	QString title()const;
 	void setTitle(const QString& a_title);
 	QColor bkcolor()const;

@@ -1,6 +1,7 @@
 #include "IdeaApplication.h"
 #include "GraphNode.h"
 #include "GraphScene.h"
+#include "GraphLink.h"
 
 IdeaApplication::IdeaApplication(QWidget *parent)
     : QMainWindow(parent)
