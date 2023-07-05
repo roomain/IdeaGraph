@@ -95,12 +95,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GraphAnchor.h" />
     <ClInclude Include="GraphLink.h" />
     <ClInclude Include="GraphNode.h" />
     <ClInclude Include="GraphScene.h" />
+    <ClInclude Include="GraphZValues.h" />
     <ClInclude Include="ideagraph_global.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GraphAnchor.cpp" />
     <ClCompile Include="GraphLink.cpp" />
     <ClCompile Include="GraphNode.cpp" />
     <ClCompile Include="GraphScene.cpp" />

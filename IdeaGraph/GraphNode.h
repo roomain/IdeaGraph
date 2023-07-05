@@ -3,24 +3,7 @@
 #include <qgraphicsitem.h>
 #include <qfont.h>
 
-class IDEAGRAPH_EXPORT GraphAnchor : public QGraphicsItem
-{
-private:
-	QColor m_circleColor;
-	bool m_bHover = false;
-
-public:
-	GraphAnchor(QGraphicsItem* parent = nullptr);
-	virtual ~GraphAnchor() = default;
-	virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0) override;
-	QColor color()const;
-	void setColor(const QColor& a_color);
-	QRectF boundingRect()const final;
-
-protected:
-	virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
-	virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
-};
+class GraphAnchor;
 
 class IDEAGRAPH_EXPORT GraphNode : public QGraphicsItem
 {
@@ -56,6 +39,7 @@ protected:
 	virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 	virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
 	virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
+	virtual void mousePressEvent(QGraphicsSceneMouseEvent* event)override;
 	virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
 };
 
