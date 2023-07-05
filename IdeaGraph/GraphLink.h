@@ -19,7 +19,10 @@ public:
 	void setEnd(GraphAnchor* const a_lnk);
 	void updateLink(const GraphAnchor* a_lnk);
 
+	void setColor(const QColor& a_color);
+
 private:
+	QColor m_color;
 	GraphAnchor* m_pStartLink = nullptr;
 	GraphAnchor* m_pEndLink = nullptr;
 	QPointF m_ptStart;
