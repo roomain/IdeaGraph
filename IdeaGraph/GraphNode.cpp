@@ -13,7 +13,7 @@
 
 GraphNode::GraphNode(QGraphicsItem* parent) : QGraphicsItem(parent)
 {
-	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable | 
+	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemSendsGeometryChanges |
 		QGraphicsItem::ItemIsFocusable);
 	setAcceptHoverEvents(true);
 	setZValue(GRAPH_NODE_Z_VALUE);
@@ -167,7 +167,19 @@ void GraphNode::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 void GraphNode::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsItem::mouseMoveEvent(event);
-	//
+}
+
+QVariant GraphNode::itemChange(GraphicsItemChange change, const QVariant& value)
+{
+	if (change == QGraphicsItem::ItemPositionChange)
+	{
+		for (auto pAnchor : m_outputAnchors)
+			pAnchor->updatePosition();
+
+		for (auto pAnchor : m_inputAnchors)
+			pAnchor->updatePosition();
+	}
+	return value;
 }
 
 void GraphNode::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
@@ -187,4 +199,9 @@ void GraphNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 	QGraphicsItem::mouseReleaseEvent(event);
 	m_bSelected = !m_bSelected;
 	update();
+}
+
+void GraphNode::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
+{
+	QGraphicsItem::dragMoveEvent(event);
 }

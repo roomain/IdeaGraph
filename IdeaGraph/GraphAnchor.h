@@ -1,11 +1,14 @@
 #pragma once
 #include <qgraphicsitem.h>
 
+class GraphLink;
+
 class GraphAnchor : public QGraphicsItem
 {
 private:
 	QColor m_circleColor;
 	bool m_bHover = false;
+	GraphLink* m_pLink = nullptr;
 
 public:
 	GraphAnchor(QGraphicsItem* parent = nullptr);
@@ -14,6 +17,8 @@ public:
 	QColor color()const;
 	void setColor(const QColor& a_color);
 	QRectF boundingRect()const final;
+	void setLink(GraphLink* const a_pLink);
+	void updatePosition();
 
 protected:
 	virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;

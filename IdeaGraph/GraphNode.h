@@ -41,5 +41,7 @@ protected:
 	virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
 	virtual void mousePressEvent(QGraphicsSceneMouseEvent* event)override;
 	virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override;
+	virtual void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override; 
+	QVariant itemChange(GraphicsItemChange change, const QVariant& value) override;
 };
 

@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include "GraphZValues.h"
+#include "GraphLink.h"
 
 GraphAnchor::GraphAnchor(QGraphicsItem* parent) : QGraphicsItem(parent)
 {
@@ -18,7 +19,7 @@ void GraphAnchor::paint(QPainter* painter, const QStyleOptionGraphicsItem* optio
 
 	QPainterPath path;
 	path.addEllipse(boundingRect());
-	painter->fillPath(path, QColor(255, 255, 255));
+	painter->fillPath(path, m_pLink ? QColor(0, 0, 0) : QColor(255, 255, 255));
 
 	painter->setPen(QPen(m_bHover ? QColor(0, 0, 255) : m_circleColor, 3));
 	painter->drawEllipse(boundingRect());
@@ -52,4 +53,15 @@ void GraphAnchor::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
 	QGraphicsItem::hoverLeaveEvent(event);
 	m_bHover = false;
+}
+
+void GraphAnchor::setLink(GraphLink* const a_pLink)
+{
+	m_pLink = a_pLink;
+}
+
+void GraphAnchor::updatePosition()
+{
+	if (m_pLink)
+		m_pLink->updateLink(this);
 }

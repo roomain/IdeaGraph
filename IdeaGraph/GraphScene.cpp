@@ -43,6 +43,8 @@ void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 			{
 				auto ptScenePos = pAnchor->mapToScene(pAnchor->boundingRect().center());
 				m_pCurrentLink->setEnd(ptScenePos);
+				m_pCurrentLink->setEnd(pAnchor);
+				pAnchor->setLink(m_pCurrentLink);
 				m_pCurrentLink = nullptr;
 			}
 		}
@@ -51,6 +53,8 @@ void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 			auto ptScenePos = pAnchor->mapToScene(pAnchor->boundingRect().center());
 			m_pCurrentLink = new GraphLink();
 			m_pCurrentLink->setStart(ptScenePos);
+			m_pCurrentLink->setStart(pAnchor);
+			pAnchor->setLink(m_pCurrentLink);
 			m_pCurrentLink->setEnd(ptScenePos);
 			addItem(m_pCurrentLink);
 		}
