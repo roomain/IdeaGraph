@@ -5,13 +5,15 @@ class GraphLink;
 
 class GraphAnchor : public QGraphicsItem
 {
-private:
-	QColor m_circleColor;
-	bool m_bHover = false;
-	GraphLink* m_pLink = nullptr;
-
 public:
-	GraphAnchor(QGraphicsItem* parent = nullptr);
+	enum class Type
+	{
+		None,
+		Input,
+		Output
+	};
+
+	GraphAnchor(const Type a_type, QGraphicsItem* parent = nullptr);
 	virtual ~GraphAnchor() = default;
 	virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
 	QColor color()const;
@@ -19,8 +21,15 @@ public:
 	QRectF boundingRect()const final;
 	void setLink(GraphLink* const a_pLink);
 	void updatePosition();
+	Type anchorType()const noexcept { return m_type; }
 
 protected:
 	virtual void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
 	virtual void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
+
+private:
+	QColor m_circleColor;
+	bool m_bHover = false;
+	GraphLink* m_pLink = nullptr;
+	Type m_type;
 };

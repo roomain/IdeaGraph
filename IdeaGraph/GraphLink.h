@@ -18,6 +18,8 @@ public:
 	void setStart(GraphAnchor* const a_lnk);
 	void setEnd(GraphAnchor* const a_lnk);
 	void updateLink(const GraphAnchor* a_lnk);
+	const GraphAnchor* startAnchor()const noexcept { return m_pStartLink; }
+	const GraphAnchor* endAnchor()const noexcept { return m_pEndLink; }
 
 	void setColor(const QColor& a_color);
 

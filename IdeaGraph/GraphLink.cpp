@@ -7,7 +7,6 @@
 
 GraphLink::GraphLink(QGraphicsItem* parent) : QGraphicsItem(parent)
 {
-	setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable);
 	setAcceptHoverEvents(true);
 	setZValue(GRAPH_LINK_Z_VALUE);
 }
@@ -24,17 +23,16 @@ GraphLink::~GraphLink()
 void GraphLink::setStart(const QPointF& a_ptStart)
 {
 	m_ptStart = a_ptStart;
-	setPos(m_ptStart);
+	QPointF topLeft(std::min(m_ptStart.x(), m_ptEnd.x()), std::min(m_ptStart.y(), m_ptEnd.y()));
+	setPos(topLeft);
 	update();
 }
 
 void GraphLink::setEnd(const QPointF& a_ptEnd)
 {
 	m_ptEnd = a_ptEnd;
-
 	QPointF topLeft(std::min(m_ptStart.x(), m_ptEnd.x()), std::min(m_ptStart.y(), m_ptEnd.y()));
 	setPos(topLeft);
-	update();
 }
 
 
@@ -74,7 +72,8 @@ void GraphLink::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
 
 QRectF GraphLink::boundingRect()const
 {
-	return QRectF(0,0, std::abs(m_ptEnd.x() - m_ptStart.x()), std::abs(m_ptEnd.y() - m_ptStart.y()));
+	QPointF topLeft(std::min(m_ptStart.x(), m_ptEnd.x()), std::min(m_ptStart.y(), m_ptEnd.y()));
+	return QRectF(QPointF(0, 0), QSizeF(std::abs(m_ptEnd.x() - m_ptStart.x()), std::abs(m_ptEnd.y() - m_ptStart.y())));
 }
 
 void GraphLink::setColor(const QColor& a_color)

@@ -4,7 +4,7 @@
 #include "GraphZValues.h"
 #include "GraphLink.h"
 
-GraphAnchor::GraphAnchor(QGraphicsItem* parent) : QGraphicsItem(parent)
+GraphAnchor::GraphAnchor(const Type a_type, QGraphicsItem* parent) : QGraphicsItem(parent), m_type{ a_type }
 {
 	setFlags(QGraphicsItem::ItemIsSelectable |
 		QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemAcceptsInputMethod);

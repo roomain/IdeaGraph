@@ -17,5 +17,6 @@ protected:
 
 private:
     GraphLink* m_pCurrentLink = nullptr;
+    GraphLink* m_pOld = nullptr;
 };
 

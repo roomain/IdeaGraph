@@ -14,7 +14,7 @@ GraphScene::GraphScene(QObject* parent) : QGraphicsScene(parent)
 void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsScene::mousePressEvent(event);
-	
+	//
 }
 
 void GraphScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
@@ -41,11 +41,15 @@ void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 		{
 			if (pAnchor)
 			{
-				auto ptScenePos = pAnchor->mapToScene(pAnchor->boundingRect().center());
-				m_pCurrentLink->setEnd(ptScenePos);
-				m_pCurrentLink->setEnd(pAnchor);
-				pAnchor->setLink(m_pCurrentLink);
-				m_pCurrentLink = nullptr;
+				if (m_pCurrentLink->startAnchor() && (m_pCurrentLink->startAnchor()->anchorType() != pAnchor->anchorType()))
+				{
+					auto ptScenePos = pAnchor->mapToScene(pAnchor->boundingRect().center());
+					m_pCurrentLink->setEnd(ptScenePos);
+					m_pCurrentLink->setEnd(pAnchor);
+					pAnchor->setLink(m_pCurrentLink);
+					m_pOld = m_pCurrentLink;
+					m_pCurrentLink = nullptr;
+				}
 			}
 		}
 		else if (pAnchor)

@@ -21,14 +21,14 @@ GraphNode::GraphNode(QGraphicsItem* parent) : QGraphicsItem(parent)
 
 void GraphNode::addInput(const QString& a_title)
 {
-	auto pAnchor = new GraphAnchor(this);
+	auto pAnchor = new GraphAnchor(GraphAnchor::Type::Input, this);
 	pAnchor->setToolTip(a_title);
 	m_inputAnchors.push_back(pAnchor);
 }
 
 void GraphNode::addOutput(const QString& a_title)
 {
-	auto pAnchor = new GraphAnchor(this);
+	auto pAnchor = new GraphAnchor(GraphAnchor::Type::Output, this);
 	pAnchor->setToolTip(a_title);
 	m_outputAnchors.push_back(pAnchor);
 }
