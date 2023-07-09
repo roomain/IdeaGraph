@@ -7,7 +7,6 @@
 
 GraphLink::GraphLink(QGraphicsItem* parent) : QGraphicsItem(parent)
 {
-	setAcceptHoverEvents(true);
 	setZValue(GRAPH_LINK_Z_VALUE);
 }
 

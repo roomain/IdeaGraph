@@ -2,7 +2,7 @@
 #include "ideagraph_global.h"
 #include <qgraphicsitem.h>
 #include <qfont.h>
-
+#include "AnchorShape.h"
 class GraphAnchor;
 
 class IDEAGRAPH_EXPORT GraphNode : public QGraphicsItem
@@ -21,8 +21,8 @@ private:
 public:
 	GraphNode(QGraphicsItem* parent = nullptr);
 	virtual ~GraphNode() = default;
-	void addInput(const QString& a_title);
-	void addOutput(const QString& a_title);
+	void addInput(const QString& a_title, AnchorShape a_shape = AnchorShape::Circle);
+	void addOutput(const QString& a_title, AnchorShape a_shape = AnchorShape::Circle);
 	virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
 	QString title()const;
 	void setTitle(const QString& a_title);

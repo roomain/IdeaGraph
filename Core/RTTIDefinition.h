@@ -33,7 +33,7 @@ public:
 	/*
 	* @return class name
 	*/
-	[[nodiscard]] inline const std::string className()const { return m_className; }
+	[[nodiscard]] constexpr std::string_view className()const { return m_className; }
 
 	/*
 	* @brief check is defined class is same class defined by pDef
@@ -53,7 +53,7 @@ public:
 	}
 
 	/*@return version number of definition*/
-	[[nodiscard]] inline unsigned short version()const noexcept { return m_version; }
+	[[nodiscard]] constexpr unsigned short version()const noexcept { return m_version; }
 
 	/*@brief size of described class*/
 	[[nodiscard]] virtual size_t classSize()const noexcept = 0;

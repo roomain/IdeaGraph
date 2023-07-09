@@ -4,7 +4,8 @@
 #include "GraphZValues.h"
 #include "GraphLink.h"
 
-GraphAnchor::GraphAnchor(const Type a_type, QGraphicsItem* parent) : QGraphicsItem(parent), m_type{ a_type }
+GraphAnchor::GraphAnchor(const Type a_type, QGraphicsItem* parent) : QGraphicsItem(parent), m_type{ a_type },
+m_shape{ AnchorShape::Circle }
 {
 	setFlags(QGraphicsItem::ItemIsSelectable |
 		QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemAcceptsInputMethod);
@@ -18,11 +19,54 @@ void GraphAnchor::paint(QPainter* painter, const QStyleOptionGraphicsItem* optio
 	painter->setRenderHint(QPainter::Antialiasing);
 
 	QPainterPath path;
-	path.addEllipse(boundingRect());
-	painter->fillPath(path, m_pLink ? QColor(0, 0, 0) : QColor(255, 255, 255));
+	auto fillColor = m_pLink ? QColor(0, 0, 0) : QColor(255, 255, 255);
+	auto penColor = m_bHover ? QColor(0, 0, 255) : m_circleColor;
+	painter->setPen(QPen(penColor, 3));
+	switch (m_shape)
+	{
+	case AnchorShape::Circle:
+		path.addEllipse(boundingRect());
+		painter->fillPath(path, fillColor);
+		painter->drawEllipse(boundingRect());
+		break;
 
-	painter->setPen(QPen(m_bHover ? QColor(0, 0, 255) : m_circleColor, 3));
-	painter->drawEllipse(boundingRect());
+	case AnchorShape::Square:
+		painter->fillRect(boundingRect(), fillColor);
+		painter->drawRect(boundingRect());
+		break;
+
+	case AnchorShape::LeftTriangle:
+	{
+		float width = boundingRect().width();
+		float height = boundingRect().height();
+		QPolygonF triangle;
+		triangle.append(QPoint(0, height / 2.0f));
+		triangle.append(QPoint(width, height));
+		triangle.append(QPoint(width, 0));
+		triangle.append(QPoint(0, height / 2.0f));
+		path.addPolygon(triangle);
+		painter->fillPath(path, fillColor);
+		painter->drawPath(path);
+		break;
+	}
+
+	case AnchorShape::RightTriangle:
+	{
+		float width = boundingRect().width();
+		float height = boundingRect().height();
+		QPolygonF triangle;
+		triangle.append(QPoint(width, height / 2.0f));
+		triangle.append(QPoint(0, 0));
+		triangle.append(QPoint(0, height));
+		triangle.append(QPoint(width, height / 2.0f));
+		path.addPolygon(triangle);
+		painter->fillPath(path, fillColor);
+		painter->drawPath(path);
+		break;
+	}
+	default:
+		break;
+	}
 
 	painter->restore();
 }
@@ -58,6 +102,11 @@ void GraphAnchor::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 void GraphAnchor::setLink(GraphLink* const a_pLink)
 {
 	m_pLink = a_pLink;
+}
+
+void GraphAnchor::eraseLink() 
+{ 
+	delete m_pLink; 
 }
 
 void GraphAnchor::updatePosition()

@@ -95,10 +95,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnchorShape.h" />
     <ClInclude Include="GraphAnchor.h" />
     <ClInclude Include="GraphLink.h" />
     <ClInclude Include="GraphNode.h" />
     <ClInclude Include="GraphScene.h" />
+    <QtMoc Include="GraphWidget.h" />
+    <QtMoc Include="GraphView.h" />
     <ClInclude Include="GraphZValues.h" />
     <ClInclude Include="ideagraph_global.h" />
   </ItemGroup>
@@ -107,6 +110,11 @@
     <ClCompile Include="GraphLink.cpp" />
     <ClCompile Include="GraphNode.cpp" />
     <ClCompile Include="GraphScene.cpp" />
+    <ClCompile Include="GraphView.cpp" />
+    <ClCompile Include="GraphWidget.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="GraphWidget.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

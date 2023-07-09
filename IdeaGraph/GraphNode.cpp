@@ -19,17 +19,19 @@ GraphNode::GraphNode(QGraphicsItem* parent) : QGraphicsItem(parent)
 	setZValue(GRAPH_NODE_Z_VALUE);
 }
 
-void GraphNode::addInput(const QString& a_title)
+void GraphNode::addInput(const QString& a_title, AnchorShape a_shape)
 {
 	auto pAnchor = new GraphAnchor(GraphAnchor::Type::Input, this);
 	pAnchor->setToolTip(a_title);
+	pAnchor->setAnchorShape(a_shape);
 	m_inputAnchors.push_back(pAnchor);
 }
 
-void GraphNode::addOutput(const QString& a_title)
+void GraphNode::addOutput(const QString& a_title, AnchorShape a_shape)
 {
 	auto pAnchor = new GraphAnchor(GraphAnchor::Type::Output, this);
 	pAnchor->setToolTip(a_title);
+	pAnchor->setAnchorShape(a_shape);
 	m_outputAnchors.push_back(pAnchor);
 }
 

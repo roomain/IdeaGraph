@@ -95,7 +95,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <QtMoc Include="ColorEditor.h" />
+    <QtMoc Include="ColorWidget.h" />
     <ClInclude Include="editwidgets_global.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ColorEditor.cpp" />
+    <ClCompile Include="ColorWidget.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="ColorEditor.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
