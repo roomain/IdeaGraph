@@ -13,5 +13,9 @@ protected:
 	void mouseMoveEvent(QMouseEvent* a_pEvent) override;
 	void mousePressEvent(QMouseEvent* a_pEvent) override;
 	void mouseReleaseEvent(QMouseEvent* a_pEvent) override;
+	void mouseDoubleClickEvent(QMouseEvent* event) override;
+
+private:
+	QPointF m_lastMousePos;
 };
 

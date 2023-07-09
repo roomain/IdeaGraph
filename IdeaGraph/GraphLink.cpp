@@ -43,6 +43,13 @@ void GraphLink::setStart(GraphAnchor* const a_lnk)
 void GraphLink::setEnd(GraphAnchor* const a_lnk)
 {
 	m_pEndLink = a_lnk;
+	if (m_pEndLink && m_pStartLink)
+	{
+		if (m_pEndLink->parentItem() == m_pStartLink->parentItem())
+		{
+			//
+		}
+	}
 }
 
 void GraphLink::updateLink(const GraphAnchor* a_lnk)
@@ -66,6 +73,7 @@ void GraphLink::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
 	path.cubicTo(crtl1 - pos(), crtl2 - pos(), m_ptEnd - pos());
 	painter->setPen(QPen(m_color, 3));
 	painter->drawPath(path);
+
 	painter->restore();
 }
 

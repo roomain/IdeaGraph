@@ -27,7 +27,7 @@ void GraphScene::wheelEvent(QGraphicsSceneWheelEvent* event)
 void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsScene::mousePressEvent(event);
-	m_lastMousePos = event->scenePos();
+	//
 }
 
 void GraphScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
@@ -36,16 +36,6 @@ void GraphScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 	auto ptMousePos = event->scenePos();
 	if (m_pCurrentLink)
 		m_pCurrentLink->setEnd(ptMousePos);
-
-	if (event->buttons() == Qt::MiddleButton)
-	{
-		auto trans =  m_lastMousePos - ptMousePos;
-		auto rect = sceneRect();
-		rect.translate(trans.x(), trans.y());
-		setSceneRect(rect);
-		m_lastMousePos = ptMousePos;
-	}
-
 	update();
 }
 
@@ -97,6 +87,12 @@ bool GraphScene::onPressItem(QGraphicsSceneMouseEvent* event, GraphNode* const a
 	return true;
 }
 
+void GraphScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
+{
+	QGraphicsScene::mouseDoubleClickEvent(event);
+	//
+}
+
 void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsScene::mouseReleaseEvent(event);
@@ -117,9 +113,5 @@ void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 			}
 
 		}
-	}
-	else if (event->buttons() == Qt::MiddleButton)
-	{
-		m_lastMousePos = event->scenePos();
 	}
 }

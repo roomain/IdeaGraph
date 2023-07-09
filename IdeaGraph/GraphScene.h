@@ -17,11 +17,11 @@ protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent* event)override;
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent* event)override;
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent* event)override;
+    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) override;
 
 private:
     GraphLink* m_pCurrentLink = nullptr;
     GraphLink* m_pOld = nullptr;
-    QPointF m_lastMousePos;
 
     bool onPressItem(QGraphicsSceneMouseEvent* event, GraphAnchor* const a_pAnchor);
     bool onPressItem(QGraphicsSceneMouseEvent* event, GraphNode* const a_pNode);
