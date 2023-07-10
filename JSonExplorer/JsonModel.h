@@ -1,5 +1,6 @@
 #pragma once
 #include <qabstractitemmodel.h>
+#include <qjsondocument.h>
 
 class JSonNode;
 
@@ -9,7 +10,7 @@ class JsonModel : public QAbstractItemModel
 public:
 	JsonModel(QObject* a_pParent = nullptr);
 	virtual ~JsonModel() = default;
-	void setup(std::shared_ptr<JSonNode>& a_pRoot) { m_pRoot = a_pRoot; }
+	void setup(const QJsonDocument& a_doc);
 	QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const final;
 	QModelIndex parent(const QModelIndex& child) const final;
 	int rowCount(const QModelIndex& parent = QModelIndex()) const final;
