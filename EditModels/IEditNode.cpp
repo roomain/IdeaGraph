@@ -38,6 +38,7 @@ int IEditNode::placeInParent()const
 	if (auto pParent = m_parent.lock())
 	{
 		auto iter = std::ranges::find(pParent->m_children, shared_from_this());
+		iRet = iter - pParent->m_children.begin();
 	}
 	return iRet;
 }
