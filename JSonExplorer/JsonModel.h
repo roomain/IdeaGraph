@@ -1,6 +1,8 @@
 #pragma once
 #include <qabstractitemmodel.h>
 #include <qjsondocument.h>
+#include <qjsonobject.h>
+#include <qjsonarray.h>
 
 class JSonNode;
 
@@ -20,6 +22,8 @@ public:
 
 
 private:
+	void setup(const QJsonObject& a_obj);
+	void setup(const QJsonArray& a_array);
 	std::shared_ptr<JSonNode> m_pRoot;
 };
 

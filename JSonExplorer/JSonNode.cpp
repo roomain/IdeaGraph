@@ -8,19 +8,13 @@ JSonNode::JSonNode(const QString& a_title, const NodeType a_type, const std::sha
 		a_parent->addChild(shared_from_this());
 }
 
-JSonNode::JSonNode(const QString& a_title, const NodeType a_type, const QJsonValue& a_value, const std::shared_ptr<JSonNode>& a_parent) :
+JSonNode::JSonNode(const QString& a_title, const QJsonValue& a_value, const NodeType a_type, const std::shared_ptr<JSonNode>& a_parent) :
 	m_title{ a_title }, m_value{ a_value }, m_type{ a_type }
 {
 	if(a_parent)
 		a_parent->addChild(shared_from_this());
 }
 
-JSonNode::JSonNode(const QString& a_title, const NodeType a_type, const std::shared_ptr<JSonNode>& a_parent) :
-	m_title{ a_title }, m_type{ a_type }
-{
-	if (a_parent)
-		a_parent->addChild(shared_from_this());
-}
 
 const int JSonNode::placeInParent()const
 {

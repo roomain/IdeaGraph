@@ -15,9 +15,8 @@ public:
 		JSON_VALUE
 	};
 
-	JSonNode(const QString& a_title, const NodeType a_type = NodeType::JSON_OBJECT, const std::shared_ptr<JSonNode>& a_parent);
-	JSonNode(const QString& a_title, const NodeType a_type = NodeType::JSON_VALUE, const QJsonValue& a_value, const std::shared_ptr<JSonNode>& a_parent);
-	JSonNode(const QString& a_title, const NodeType a_type, const std::shared_ptr<JSonNode>& a_parent);
+	JSonNode(const QString& a_title, const NodeType a_type = NodeType::JSON_OBJECT, const std::shared_ptr<JSonNode>& a_parent = std::shared_ptr<JSonNode>());
+	JSonNode(const QString& a_title, const QJsonValue& a_value, const NodeType a_type = NodeType::JSON_VALUE, const std::shared_ptr<JSonNode>& a_parent = std::shared_ptr<JSonNode>());
 	~JSonNode() = default;
 	[[nodiscard]] const int placeInParent()const;
 	[[nodiscard]] std::weak_ptr<JSonNode> parent();

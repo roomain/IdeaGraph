@@ -1,7 +1,6 @@
 #include "JsonModel.h"
 #include "JSonNode.h"
 #include <qjsonvalue.h>
-#include <qjsonobject.h>
 
 
 //-------------------------------------------------------------------------------------------
@@ -14,6 +13,45 @@ void JsonModel::setup(const QJsonDocument& a_doc)
 	auto rootObj = a_doc.object();
 	m_pRoot = std::make_shared<JSonNode>("JSON Document");
 	for (const auto& iter: rootObj)
+	{
+		if (iter.isObject())
+		{
+			//
+		}
+		else if (iter.isArray())
+		{
+			//
+		}
+		else
+		{
+			//std::make_shared<JSonNode>("JSON Document");
+		}
+	}
+}
+
+
+void JsonModel::setup(const QJsonObject& a_obj)
+{
+	for (const auto& iter : a_obj)
+	{
+		if (iter.isObject())
+		{
+			//
+		}
+		else if (iter.isArray())
+		{
+			//
+		}
+		else
+		{
+			//std::make_shared<JSonNode>("JSON Document");
+		}
+	}
+}
+
+void JsonModel::setup(const QJsonArray& a_array)
+{
+	for (const auto& iter : a_array)
 	{
 		if (iter.isObject())
 		{
