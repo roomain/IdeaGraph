@@ -1,18 +1,14 @@
 #include "JSonNode.h"
 #include <ranges>
 
-JSonNode::JSonNode(const QString& a_title, const NodeType a_type, const std::shared_ptr<JSonNode>& a_parent) :
+JSonNode::JSonNode(const QString& a_title, const NodeType a_type) :
 	m_title{ a_title }, m_type{ a_type }
 {
-	if (a_parent)
-		a_parent->addChild(shared_from_this());
 }
 
-JSonNode::JSonNode(const QString& a_title, const QJsonValue& a_value, const NodeType a_type, const std::shared_ptr<JSonNode>& a_parent) :
+JSonNode::JSonNode(const QString& a_title, const QJsonValue& a_value, const NodeType a_type) :
 	m_title{ a_title }, m_value{ a_value }, m_type{ a_type }
 {
-	if(a_parent)
-		a_parent->addChild(shared_from_this());
 }
 
 
@@ -42,7 +38,7 @@ std::shared_ptr<JSonNode> JSonNode::childAt(const unsigned int a_index)
 	return m_vChildren[a_index];
 }
 
-void JSonNode::addChild(const std::shared_ptr<JSonNode>& a_node)
+void JSonNode::addChild(std::shared_ptr<JSonNode>& a_node)
 {
 	if (a_node->m_parent.lock())
 		a_node->m_parent.lock()->removeChild(a_node);
@@ -51,7 +47,7 @@ void JSonNode::addChild(const std::shared_ptr<JSonNode>& a_node)
 	a_node->m_parent = shared_from_this();
 }
 
-void JSonNode::removeChild(const std::shared_ptr<JSonNode>& a_node)
+void JSonNode::removeChild(std::shared_ptr<JSonNode>& a_node)
 {
 	auto iter = std::ranges::find(m_vChildren, a_node);
 	if (iter != m_vChildren.end())
@@ -76,7 +72,7 @@ QVariant JSonNode::displayRole()const
 	case NodeType::JSON_OBJECT:
 		title = "{} " + title;
 		break;
-	case NodeType::JSON_TABLE:
+	case NodeType::JSON_ARRAY:
 		title = "[] " + title;
 		break;
 	}
@@ -102,3 +98,20 @@ QVariant JSonNode::decorationRole()const
 {
 	return QVariant();
 }
+
+
+void JSonNode::addAttrib(const QString& a_key, const QVariant& a_value)
+{
+	m_vAttrib.emplace_back(JsonAttribute{ a_key, a_value });
+}
+
+const size_t& JSonNode::attribCount()const noexcept
+{
+	return m_vAttrib.size();
+}
+
+const JSonNode::JsonAttribute& JSonNode::attributeAt(const int a_index)
+{
+	return m_vAttrib[a_index];
+}
+

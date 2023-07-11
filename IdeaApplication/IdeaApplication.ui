@@ -35,14 +35,20 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="dockGraph">
    <property name="features">
     <set>QDockWidget::NoDockWidgetFeatures</set>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="GraphWidget" name="dockWidgetContents"/>
+   <widget class="GraphWidget" name="graphContent"/>
+  </widget>
+  <widget class="QDockWidget" name="dockJson">
+   <attribute name="dockWidgetArea">
+    <number>4</number>
+   </attribute>
+   <widget class="JsonViewer" name="JsonContent"/>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
@@ -51,6 +57,12 @@
    <class>GraphWidget</class>
    <extends>QWidget</extends>
    <header>graphwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>JsonViewer</class>
+   <extends>QWidget</extends>
+   <header>jsonviewer.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

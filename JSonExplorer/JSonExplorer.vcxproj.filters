@@ -37,10 +37,27 @@
     <ClCompile Include="JsonModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="JsonDataModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonViewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="JsonModel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="JsonDataModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="JsonViewer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="JsonViewer.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
 </Project>

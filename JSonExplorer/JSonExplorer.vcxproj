@@ -95,13 +95,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <QtMoc Include="JsonViewer.h" />
+    <QtMoc Include="JsonDataModel.h" />
     <ClInclude Include="jsonexplorer_global.h" />
     <QtMoc Include="JsonModel.h" />
     <ClInclude Include="JSonNode.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="JsonDataModel.cpp" />
     <ClCompile Include="JsonModel.cpp" />
     <ClCompile Include="JSonNode.cpp" />
+    <ClCompile Include="JsonViewer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="JsonViewer.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

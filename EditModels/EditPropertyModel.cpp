@@ -26,6 +26,12 @@ QModelIndex EditPropertyModel::index(int row, int column, const QModelIndex& par
 QModelIndex EditPropertyModel::parent(const QModelIndex& child) const
 {
 	IEditNode* pNode = static_cast<IEditNode*>(child.internalPointer());
+	if (pNode == m_pRoot.get())
+		return QModelIndex();
+
+	if (pNode->parent().lock() == m_pRoot)
+		return createIndex(0, child.column(), m_pRoot.get());
+
 	if (pNode->parent().lock())
 		return createIndex(pNode->parent().lock()->placeInParent(), child.column(), pNode->parent().lock().get());
 	
