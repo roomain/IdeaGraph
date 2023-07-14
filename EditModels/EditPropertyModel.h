@@ -12,7 +12,7 @@ class EDITMODELS_EXPORT EditPropertyModel : public QAbstractItemModel
 public:
     EditPropertyModel(QObject* a_pParent = nullptr);
     virtual ~EditPropertyModel() = default;
-    void setup(std::shared_ptr<IEditNode>& a_pRoot) { m_pRoot = a_pRoot; }
+    void setup(std::shared_ptr<IEditNode>& a_pRoot);
     QModelIndex index(int row, int column, const QModelIndex& parent = QModelIndex()) const final;
     QModelIndex parent(const QModelIndex& child) const final;
     int rowCount(const QModelIndex& parent = QModelIndex()) const final;

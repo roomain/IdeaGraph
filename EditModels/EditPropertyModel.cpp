@@ -9,6 +9,12 @@ EditPropertyModel::EditPropertyModel(QObject* a_pParent) : QAbstractItemModel(a_
 {
 }
 
+void EditPropertyModel::setup(std::shared_ptr<IEditNode>& a_pRoot) 
+{ 
+	beginResetModel();
+	m_pRoot = a_pRoot;
+	endResetModel();
+}
 
 QModelIndex EditPropertyModel::index(int row, int column, const QModelIndex& parent) const
 {

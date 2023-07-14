@@ -4,8 +4,9 @@
 #include <QString>
 #include <QVariant>
 #include <qcolor.h>
+#include "editmodels_global.h"
 
-class IEditNode : public std::enable_shared_from_this<IEditNode>
+class EDITMODELS_EXPORT IEditNode : public std::enable_shared_from_this<IEditNode>
 {
 public:
 	enum class Type
@@ -20,7 +21,6 @@ private:
 
 public:
 	IEditNode() = default;
-	explicit IEditNode(std::shared_ptr<IEditNode>& a_parent);
 	virtual ~IEditNode();
 	void addChild(std::shared_ptr<IEditNode>& a_pChild);
 	void removeChild(const std::shared_ptr<IEditNode>& a_pChild);
@@ -40,7 +40,7 @@ public:
 	virtual void setData(const QVariant& a_data) = 0;
 };
 
-class CategoryEditNode : public IEditNode
+class EDITMODELS_EXPORT CategoryEditNode : public IEditNode
 {
 private:
 	QString m_sCatName;
@@ -51,7 +51,6 @@ private:
 public:
 	CategoryEditNode() = delete;
 	CategoryEditNode(QString a_sCatName, QColor a_backgroundColor, QColor a_forgroundColor);
-	explicit CategoryEditNode(std::shared_ptr<IEditNode>& a_parent, QString a_sCatName, QColor a_backgroundColor, QColor a_forgroundColor);
 	virtual ~CategoryEditNode() = default;
 	[[nodiscard]] virtual QString title()const final { return m_sCatName; }
 	[[nodiscard]] bool isEditable()const final { return false; }

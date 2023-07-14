@@ -2,11 +2,6 @@
 #include <algorithm>
 #include <qfont.h>
 
-IEditNode::IEditNode(std::shared_ptr<IEditNode>& a_parent)
-{
-	//
-}
-
 IEditNode::~IEditNode()
 {
 	if (m_parent.lock())
@@ -49,11 +44,6 @@ CategoryEditNode::CategoryEditNode(QString a_sCatName, QColor a_backgroundColor,
 	//
 }
 
-CategoryEditNode::CategoryEditNode(std::shared_ptr<IEditNode>& a_parent, QString a_sCatName, QColor a_backgroundColor, QColor a_foregroundColor) :
-	IEditNode(a_parent), m_sCatName{ a_sCatName }, m_backgroundColor{ a_backgroundColor }, m_foregroundColor{ a_foregroundColor }
-{
-	//
-}
 
 
 QVariant CategoryEditNode::displayRole()const

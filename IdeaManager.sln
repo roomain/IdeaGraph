@@ -10,6 +10,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IdeaApplication", "IdeaAppl
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IdeaGraph", "IdeaGraph\IdeaGraph.vcxproj", "{1660AF3E-CC36-4428-8DB2-B11538BF69DD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B28A9192-2091-42DF-9CA7-FCEA4D9406CC} = {B28A9192-2091-42DF-9CA7-FCEA4D9406CC}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EditWidgets", "EditWidgets\EditWidgets.vcxproj", "{455FAB5C-1B5F-4B67-ACC0-7CC12F933852}"
 EndProject
