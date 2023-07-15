@@ -13,6 +13,8 @@ EditPropertyModel::EditPropertyModel(QObject* a_pParent) : QAbstractItemModel(a_
 void EditPropertyModel::clear()
 {
 	beginResetModel();
+	for (auto pItem : m_vTopLevels)
+		delete pItem;
 	m_vTopLevels.clear();
 	endResetModel();
 }

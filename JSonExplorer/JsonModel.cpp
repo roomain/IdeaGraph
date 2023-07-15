@@ -12,20 +12,19 @@ void JsonModel::setup(const QJsonDocument& a_doc)
 {
 	beginResetModel();
 	auto rootObj = a_doc.object();
-	m_pRoot = std::make_shared<JSonNode>("JSON Document");
+	delete m_pRoot;
+	m_pRoot = new JSonNode("JSON Document");
 	for (const auto& iterKey: rootObj.keys())
 	{
 		auto jsonItem = rootObj.value(iterKey);
 		if (jsonItem.isObject())
 		{
-			auto pNode = std::make_shared<JSonNode>(iterKey, JSonNode::NodeType::JSON_OBJECT);
-			m_pRoot->addChild(pNode);
+			auto pNode = new JSonNode(m_pRoot, iterKey, JSonNode::NodeType::JSON_OBJECT);
 			setup(jsonItem.toObject(), pNode);
 		}
 		else if (jsonItem.isArray())
 		{
-			auto pNode = std::make_shared<JSonNode>(iterKey, JSonNode::NodeType::JSON_ARRAY);
-			m_pRoot->addChild(pNode);
+			auto pNode = new JSonNode(m_pRoot, iterKey, JSonNode::NodeType::JSON_ARRAY);
 			setup(jsonItem.toArray(), pNode);
 		}
 		else
@@ -37,20 +36,20 @@ void JsonModel::setup(const QJsonDocument& a_doc)
 }
 
 
-void JsonModel::setup(const QJsonObject& a_obj, const std::shared_ptr<JSonNode>& a_pParent)
+void JsonModel::setup(const QJsonObject& a_obj, JSonNode* const a_pParent)
 {
 	for (const auto& iterKey : a_obj.keys())
 	{
 		auto jsonItem = a_obj.value(iterKey);
 		if (jsonItem.isObject())
 		{
-			auto pNode = std::make_shared<JSonNode>(iterKey, JSonNode::NodeType::JSON_OBJECT);
+			auto pNode = new JSonNode(iterKey, JSonNode::NodeType::JSON_OBJECT);
 			a_pParent->addChild(pNode);
 			setup(jsonItem.toObject(), pNode);
 		}
 		else if (jsonItem.isArray())
 		{
-			auto pNode = std::make_shared<JSonNode>(iterKey, JSonNode::NodeType::JSON_ARRAY);
+			auto pNode = new JSonNode(iterKey, JSonNode::NodeType::JSON_ARRAY);
 			a_pParent->addChild(pNode);
 			setup(jsonItem.toArray(), pNode);
 		}
@@ -61,22 +60,20 @@ void JsonModel::setup(const QJsonObject& a_obj, const std::shared_ptr<JSonNode>&
 	}
 }
 
-void JsonModel::setup(const QJsonArray& a_array, const std::shared_ptr<JSonNode>& a_pParent)
+void JsonModel::setup(const QJsonArray& a_array, JSonNode* const a_pParent)
 {
 	int index = 0;
 	for (const auto& jsonItem : a_array)
 	{
 		if (jsonItem.isObject())
 		{
-			auto pNode = std::make_shared<JSonNode>(QString("[%1] Object").arg(index), JSonNode::NodeType::JSON_OBJECT);
-			a_pParent->addChild(pNode);
+			auto pNode = new JSonNode(a_pParent, QString("[%1] Object").arg(index), JSonNode::NodeType::JSON_OBJECT);
 			setup(jsonItem.toObject(), pNode);
 		}
 		else if (jsonItem.isArray())
 		{
-			auto pNode = std::make_shared<JSonNode>(QString("[%1] Array").arg(index), JSonNode::NodeType::JSON_ARRAY);
+			auto pNode = new JSonNode(a_pParent, QString("[%1] Array").arg(index), JSonNode::NodeType::JSON_ARRAY);
 			setup(jsonItem.toArray(), pNode);
-			a_pParent->addChild(pNode);
 		}
 		else
 		{
@@ -91,26 +88,26 @@ QModelIndex JsonModel::index(int row, int column, const QModelIndex& parent) con
 	if (!parent.isValid())
 	{
 		if (m_pRoot)
-			return createIndex(row, column, m_pRoot.get());
+			return createIndex(row, column, m_pRoot);
 		return QModelIndex();
 	}
 
 	JSonNode* pNode = static_cast<JSonNode*>(parent.internalPointer());
-	return createIndex(row, column, pNode->childAt(row).get());
+	return createIndex(row, column, pNode->childAt(row));
 }
 
 QModelIndex JsonModel::parent(const QModelIndex& child) const
 {
 	JSonNode* pNode = static_cast<JSonNode*>(child.internalPointer());
 	
-	if(pNode == m_pRoot.get())
+	if(pNode == m_pRoot)
 		return QModelIndex();
 
-	if (pNode->parent().lock() == m_pRoot)
-		return createIndex(0, child.column(), m_pRoot.get());
+	if (pNode->parent() == m_pRoot)
+		return createIndex(0, child.column(), m_pRoot);
 
-	if (pNode->parent().lock())
-		return createIndex(pNode->parent().lock()->placeInParent(), child.column(), pNode->parent().lock().get());
+	if (pNode->parent())
+		return createIndex(pNode->parent()->placeInParent(), child.column(), pNode->parent());
 
 	return QModelIndex();
 }

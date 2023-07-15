@@ -1,11 +1,10 @@
 #pragma once
-#include <memory>
 #include <vector>
 #include <optional>
 #include <QVariant>
 #include <qjsonvalue.h>
 
-class JSonNode : public std::enable_shared_from_this<JSonNode>
+class JSonNode
 {
 public:
 	struct JsonAttribute
@@ -23,13 +22,17 @@ public:
 
 	JSonNode(const QString& a_title, const NodeType a_type = NodeType::JSON_OBJECT);
 	JSonNode(const QString& a_title, const QJsonValue& a_value, const NodeType a_type = NodeType::JSON_VALUE);
+
+	JSonNode(JSonNode* const a_node, const QString& a_title, const NodeType a_type = NodeType::JSON_OBJECT);
+	JSonNode(JSonNode* const a_node, const QString& a_title, const QJsonValue& a_value, const NodeType a_type = NodeType::JSON_VALUE);
+
 	~JSonNode() = default;
 	[[nodiscard]] const int placeInParent()const;
-	[[nodiscard]] std::weak_ptr<JSonNode> parent();
+	[[nodiscard]] JSonNode* const parent()const;
 	[[nodiscard]] size_t childCount()const;
-	[[nodiscard]] std::shared_ptr<JSonNode> childAt(const unsigned int a_index);
-	void addChild(std::shared_ptr<JSonNode>& a_node);
-	void removeChild(std::shared_ptr<JSonNode>& a_node);
+	[[nodiscard]] JSonNode* const childAt(const unsigned int a_index);
+	void addChild(JSonNode* const a_node);
+	void removeChild(JSonNode* const a_node);
 	void removeChildAt(const unsigned int a_index);
 	void addAttrib(const QString& a_key, const QVariant& a_value);
 	const size_t& attribCount()const noexcept;
@@ -42,8 +45,8 @@ public:
 	[[nodiscard]] virtual QVariant decorationRole()const;
 
 private:
-	std::weak_ptr<JSonNode> m_parent;
-	std::vector<std::shared_ptr<JSonNode>> m_vChildren;
+	JSonNode* m_parent;
+	std::vector<JSonNode*> m_vChildren;
 	QString m_title;
 	NodeType m_type;
 	std::optional<QJsonValue> m_value;

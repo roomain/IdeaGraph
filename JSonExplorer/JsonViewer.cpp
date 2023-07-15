@@ -41,7 +41,7 @@ void JsonViewer::onJsonNodeClicked(const QModelIndex& a_index)
 	auto pJsonNode = static_cast<JSonNode*>(a_index.internalPointer());
 	if (pJsonNode)
 	{
-		pDataModel->setup(pJsonNode->shared_from_this());
+		pDataModel->setup(pJsonNode);
 	}
 	else
 	{

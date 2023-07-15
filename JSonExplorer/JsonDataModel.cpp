@@ -1,13 +1,15 @@
 #include "JsonDataModel.h"
+#include "JSonNode.h"
 
 JsonDataModel::JsonDataModel(QObject* a_pParent) : QAbstractItemModel(a_pParent)
 {
 	//
 }
 
-void JsonDataModel::setup(std::shared_ptr<JSonNode> a_node)
+void JsonDataModel::setup(JSonNode* a_node)
 {
 	beginResetModel();
+	delete m_pNode;
 	m_pNode = a_node;
 	endResetModel();
 }

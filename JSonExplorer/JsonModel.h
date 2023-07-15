@@ -22,8 +22,8 @@ public:
 
 
 private:
-	void setup(const QJsonObject& a_obj, const std::shared_ptr<JSonNode>& a_pParent);
-	void setup(const QJsonArray& a_array, const std::shared_ptr<JSonNode>& a_pParent);
-	std::shared_ptr<JSonNode> m_pRoot;
+	void setup(const QJsonObject& a_obj, JSonNode* const a_pParent);
+	void setup(const QJsonArray& a_array, JSonNode* const a_pParent);
+	JSonNode* m_pRoot = nullptr;
 };
 
