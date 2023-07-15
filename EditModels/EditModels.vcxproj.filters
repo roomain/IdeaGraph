@@ -32,18 +32,21 @@
     <ClCompile Include="EditPropertyModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClInclude Include="IEditModelFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IEditNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TEditNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DataModelDisplayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IEditNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataModelDisplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

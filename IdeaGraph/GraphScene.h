@@ -8,9 +8,15 @@ class GraphNode;
 
 class IDEAGRAPH_EXPORT GraphScene : public QGraphicsScene
 {
+    Q_OBJECT
 public:
 	GraphScene(QObject* parent = nullptr);
 	virtual ~GraphScene() = default;
+
+signals:
+    void sg_selected(GraphNode*);
+    void sg_selected(GraphAnchor*);
+    void sg_clearSelection();
 
 protected:
     virtual void wheelEvent(QGraphicsSceneWheelEvent* event)override;

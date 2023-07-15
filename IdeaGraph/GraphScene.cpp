@@ -96,6 +96,7 @@ void GraphScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
 	QGraphicsScene::mouseReleaseEvent(event);
+	emit sg_clearSelection();
 	if (event->button() == Qt::LeftButton)
 	{
 		auto itemList = items(event->scenePos());
@@ -105,11 +106,17 @@ void GraphScene::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 			{
 				auto pAnchor = dynamic_cast<GraphAnchor*>(pSelectItem);
 				if (pAnchor && onPressItem(event, pAnchor))
+				{
+					emit sg_selected(pAnchor);
 					break;
+				}
 
 				auto pNode = dynamic_cast<GraphNode*>(pSelectItem);
 				if (pNode && onPressItem(event, pNode))
+				{
+					emit sg_selected(pNode);
 					break;
+				}
 			}
 
 		}

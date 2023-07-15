@@ -9,10 +9,18 @@ EditPropertyModel::EditPropertyModel(QObject* a_pParent) : QAbstractItemModel(a_
 {
 }
 
-void EditPropertyModel::setup(std::shared_ptr<IEditNode>& a_pRoot) 
+
+void EditPropertyModel::clear()
+{
+	beginResetModel();
+	m_vTopLevels.clear();
+	endResetModel();
+}
+
+void EditPropertyModel::setup(const std::vector<IEditNode*>& a_topLevel)
 { 
 	beginResetModel();
-	m_pRoot = a_pRoot;
+	m_vTopLevels = a_topLevel;
 	endResetModel();
 }
 
@@ -20,34 +28,34 @@ QModelIndex EditPropertyModel::index(int row, int column, const QModelIndex& par
 {
 	if (!parent.isValid())
 	{
-		if(m_pRoot)
-			return createIndex(row, column, m_pRoot.get());
-		return QModelIndex();
+		if (m_vTopLevels.empty())
+			return QModelIndex();
+		return createIndex(row, column, m_vTopLevels.at(row));
 	}
 
 	IEditNode* pNode = static_cast<IEditNode*>(parent.internalPointer());
-	return createIndex(row, column, pNode->childAt(row).get());
+	return createIndex(row, column, pNode->childAt(row));
 }
 
 QModelIndex EditPropertyModel::parent(const QModelIndex& child) const
 {
 	IEditNode* pNode = static_cast<IEditNode*>(child.internalPointer());
-	if (pNode == m_pRoot.get())
+	auto pParent = pNode->parent();
+	if (!pParent)// vide
 		return QModelIndex();
 
-	if (pNode->parent().lock() == m_pRoot)
-		return createIndex(0, child.column(), m_pRoot.get());
+	auto iter = std::ranges::find(m_vTopLevels, pParent);
+	if (iter != m_vTopLevels.cend())
+		return createIndex(iter - m_vTopLevels.cbegin(), child.column(), pParent);
 
-	if (pNode->parent().lock())
-		return createIndex(pNode->parent().lock()->placeInParent(), child.column(), pNode->parent().lock().get());
+	return createIndex(pParent->placeInParent(), child.column(), pParent);
 	
-	return QModelIndex();
 }
 
 int EditPropertyModel::rowCount(const QModelIndex& parent) const
 {
 	if (!parent.isValid())
-		return m_pRoot ? 0 : 1;
+		return m_vTopLevels.size();
 	IEditNode* pNode = static_cast<IEditNode*>(parent.internalPointer());
 	return pNode->childCount();
 }
@@ -55,6 +63,24 @@ int EditPropertyModel::rowCount(const QModelIndex& parent) const
 int EditPropertyModel::columnCount(const QModelIndex& parent) const
 {
 	return 2;
+}
+
+QVariant EditPropertyModel::headerData(int section, Qt::Orientation orientation, int role)const
+{
+	QVariant var;
+	if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
+	{
+		switch (section)
+		{
+		case 0:
+			var = "Property";
+			break;
+
+		default:
+			var = "Value";
+		}
+	}
+	return var;
 }
 
 QVariant EditPropertyModel::data(const QModelIndex& index, int role) const
@@ -71,24 +97,28 @@ QVariant EditPropertyModel::data(const QModelIndex& index, int role) const
 				var = pNode->title();
 				break;
 			case Qt::ForegroundRole:
-				var = pNode->foregroundRole();
+				if (pNode->span() == 2)
+					var = pNode->foregroundRole();
 				break;
 			case Qt::BackgroundRole:
-				var = pNode->backgroundRole();
+				if (pNode->span() == 2)
+					var = pNode->backgroundRole();
 				break;
 			case Qt::FontRole:
-				var = pNode->fontRole();
+				if (pNode->span() == 2)
+					var = pNode->fontRole();
 				break;
 			default:
 				break;
 			}
 		}
-		else
+		else 
 		{
 			switch (role)
 			{
 			case Qt::DisplayRole:
-				var = pNode->displayRole();
+				if (pNode->span() == 1)
+					var = pNode->displayRole();
 				break;
 			case Qt::ForegroundRole:
 				var = pNode->foregroundRole();
@@ -117,4 +147,11 @@ Qt::ItemFlags EditPropertyModel::flags(const QModelIndex& index) const
 {
 	IEditNode* pNode = static_cast<IEditNode*>(index.internalPointer());
 	return Qt::ItemIsEnabled | (pNode->isEditable() ? Qt::ItemIsEditable : Qt::NoItemFlags) | Qt::ItemIsSelectable;
+}
+
+bool EditPropertyModel::setData(const QModelIndex& index, const QVariant& value, int role)
+{
+	IEditNode* pNode = static_cast<IEditNode*>(index.internalPointer());
+	pNode->setData(value);
+	return true;
 }

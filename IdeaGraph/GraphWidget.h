@@ -9,6 +9,9 @@ namespace Ui
 }
 QT_END_NAMESPACE
 
+class GraphNode;
+class GraphAnchor;
+
 class IDEAGRAPH_EXPORT GraphWidget : public QMainWindow
 {
 	Q_OBJECT
@@ -19,4 +22,8 @@ public:
 
 private:
 	Ui::GraphWidgetClass* ui;
+
+	void onClearSelection();
+	void onSelected(GraphNode* a_pNode);
+	void onSelected(GraphAnchor* a_pAnchor);
 };

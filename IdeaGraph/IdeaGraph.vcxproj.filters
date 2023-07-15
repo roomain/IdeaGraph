@@ -32,9 +32,6 @@
     <ClInclude Include="GraphLink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GraphScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GraphAnchor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -76,6 +73,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="GraphView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="GraphScene.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

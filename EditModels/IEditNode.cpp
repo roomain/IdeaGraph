@@ -2,37 +2,43 @@
 #include <algorithm>
 #include <qfont.h>
 
+IEditNode::IEditNode(IEditNode* const a_pParent)
+{
+	if (a_pParent)
+		a_pParent->addChild(this);
+}
+
 IEditNode::~IEditNode()
 {
-	if (m_parent.lock())
-		m_parent.lock()->removeChild(shared_from_this());
+	for (auto pChild : m_children)
+		delete pChild;
 }
 
-void IEditNode::addChild(std::shared_ptr<IEditNode>& a_pChild)
+void IEditNode::addChild(IEditNode* const a_pChild)
 {
-	if (a_pChild->m_parent.lock())
-		a_pChild->m_parent.lock()->removeChild(a_pChild);
+	if (a_pChild->m_parent)
+		a_pChild->m_parent->removeChild(a_pChild);
 
 	m_children.push_back(a_pChild);
-	a_pChild->m_parent = shared_from_this();
+	a_pChild->m_parent = this;
 }
 
-void IEditNode::removeChild(const std::shared_ptr<IEditNode>& a_pChild)
+void IEditNode::removeChild(IEditNode* const  a_pChild)
 {
 	auto iter = std::ranges::find(m_children, a_pChild);
 	if (iter != m_children.end())
 	{
 		m_children.erase(iter);
-		a_pChild->m_parent.reset();
+		a_pChild->m_parent = nullptr;
 	}
 }
 
 int IEditNode::placeInParent()const
 {
 	int iRet = -1;
-	if (auto pParent = m_parent.lock())
+	if (auto pParent = m_parent)
 	{
-		auto iter = std::ranges::find(pParent->m_children, shared_from_this());
+		auto iter = std::ranges::find(pParent->m_children, this);
 		iRet = iter - pParent->m_children.begin();
 	}
 	return iRet;
@@ -44,6 +50,11 @@ CategoryEditNode::CategoryEditNode(QString a_sCatName, QColor a_backgroundColor,
 	//
 }
 
+CategoryEditNode::CategoryEditNode(IEditNode* const a_pParent, QString a_sCatName, QColor a_backgroundColor, QColor a_foregroundColor) :
+	IEditNode(a_pParent), m_sCatName{ a_sCatName }, m_backgroundColor{ a_backgroundColor }, m_foregroundColor{ a_foregroundColor }
+{
+	//
+}
 
 
 QVariant CategoryEditNode::displayRole()const

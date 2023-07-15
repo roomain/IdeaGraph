@@ -1,12 +1,11 @@
 #pragma once
-#include <memory>
 #include <vector>
 #include <QString>
 #include <QVariant>
 #include <qcolor.h>
 #include "editmodels_global.h"
 
-class EDITMODELS_EXPORT IEditNode : public std::enable_shared_from_this<IEditNode>
+class EDITMODELS_EXPORT IEditNode
 {
 public:
 	enum class Type
@@ -16,18 +15,19 @@ public:
 	};
 
 private:
-	std::weak_ptr<IEditNode> m_parent;
-	std::vector<std::shared_ptr<IEditNode>> m_children;
+	IEditNode* m_parent = nullptr;
+	std::vector<IEditNode*> m_children;
 
 public:
 	IEditNode() = default;
+	IEditNode(IEditNode* const a_pParent);
 	virtual ~IEditNode();
-	void addChild(std::shared_ptr<IEditNode>& a_pChild);
-	void removeChild(const std::shared_ptr<IEditNode>& a_pChild);
-	[[nodiscard]] std::weak_ptr<IEditNode> parent() { return m_parent; }
-	[[nodiscard]] int childCount()const { return m_children.size(); }
+	void addChild(IEditNode* const a_pChild);
+	void removeChild(IEditNode* const a_pChild);
+	[[nodiscard]] IEditNode* const parent()const { return m_parent; }
+	[[nodiscard]] int childCount()const { return static_cast<int>(m_children.size()); }
 	[[nodiscard]] int placeInParent()const;
-	[[nodiscard]] std::shared_ptr<IEditNode> childAt(const int& a_index)const { return m_children[a_index]; }
+	[[nodiscard]] IEditNode* const childAt(const int& a_index)const { return m_children[a_index]; }
 	[[nodiscard]] virtual QString title()const = 0;
 	[[nodiscard]] virtual bool isEditable()const = 0;
 	[[nodiscard]] virtual Type type()const = 0;
@@ -51,6 +51,7 @@ private:
 public:
 	CategoryEditNode() = delete;
 	CategoryEditNode(QString a_sCatName, QColor a_backgroundColor, QColor a_forgroundColor);
+	CategoryEditNode(IEditNode* const a_pParent, QString a_sCatName, QColor a_backgroundColor, QColor a_forgroundColor);
 	virtual ~CategoryEditNode() = default;
 	[[nodiscard]] virtual QString title()const final { return m_sCatName; }
 	[[nodiscard]] bool isEditable()const final { return false; }

@@ -95,10 +95,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DataModelDisplayer.cpp" />
     <ClCompile Include="IEditNode.cpp" />
+    <ClInclude Include="DataModelDisplayer.h" />
     <ClInclude Include="editmodels_global.h" />
     <ClInclude Include="IEditNode.h" />
-    <ClInclude Include="IEditModelFactory.h" />
     <ClInclude Include="TEditNode.h" />
     <QtMoc Include="EditPropertyModel.h" />
     <ClCompile Include="EditPropertyModel.cpp" />
