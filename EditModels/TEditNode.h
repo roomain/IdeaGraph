@@ -34,6 +34,7 @@ public:
 	[[nodiscard]] virtual QVariant backgroundRole()const override { return DataModelDisplayer::backgroundRole(m_getter()); }
 	[[nodiscard]] virtual QVariant fontRole()const override { return DataModelDisplayer::fontRole(m_getter()); }
 	[[nodiscard]] virtual QVariant decorationRole()const override { return QVariant(); }
+	[[nodiscard]] virtual QVariant data()const override { return m_getter(); }
 	[[nodiscard]] int span()const final { return 1; }
 	void setData(const QVariant& a_data) final {
 		m_setter(a_data.value<ValueType>());

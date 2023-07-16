@@ -17,6 +17,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EditWidgets", "EditWidgets\EditWidgets.vcxproj", "{455FAB5C-1B5F-4B67-ACC0-7CC12F933852}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EditModels", "EditModels\EditModels.vcxproj", "{B28A9192-2091-42DF-9CA7-FCEA4D9406CC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{455FAB5C-1B5F-4B67-ACC0-7CC12F933852} = {455FAB5C-1B5F-4B67-ACC0-7CC12F933852}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{F8958B43-0F38-484F-A0AB-91FDBAC1476E}"
 EndProject

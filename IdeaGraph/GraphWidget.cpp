@@ -6,12 +6,14 @@
 #include "GraphScene.h"
 #include "GraphLink.h"
 #include "EditModelFactory.h"
+#include "EditModelDelegate.h"
 
 GraphWidget::GraphWidget(QWidget *parent)
 	: QMainWindow(parent), ui{ new Ui::GraphWidgetClass }
 {
 	ui->setupUi(this);
     ui->tvProperties->setModel(new EditPropertyModel);
+    ui->tvProperties->setItemDelegate(new EditModelDelegate);
     auto pScene = new GraphScene;
 
 

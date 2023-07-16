@@ -36,6 +36,7 @@ public:
 	[[nodiscard]] virtual QVariant backgroundRole()const = 0;
 	[[nodiscard]] virtual QVariant fontRole()const = 0;
 	[[nodiscard]] virtual QVariant decorationRole()const = 0;
+	[[nodiscard]] virtual QVariant data()const = 0;
 	[[nodiscard]] virtual int span()const = 0;
 	virtual void setData(const QVariant& a_data) = 0;
 };
@@ -61,6 +62,7 @@ public:
 	[[nodiscard]] QVariant backgroundRole()const final;
 	[[nodiscard]] QVariant fontRole()const final;
 	[[nodiscard]] QVariant decorationRole()const final;
+	[[nodiscard]] QVariant data()const final{ return QVariant(); }
 	[[nodiscard]] int span()const final { return 2; }
 	void setData(const QVariant& a_data) final {/*nothing todo*/ }
 };
